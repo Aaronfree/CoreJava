@@ -1,0 +1,63 @@
+import java.util.*;
+
+public class EmployeeTest {
+
+	public static void main(String[] args) {
+		Employee[] staff=new Employee[3];		//对象变量的构造需要用new
+		staff[0]=new Employee("Clack Jack",75000,1987,12,13);//构造器总是伴随着new操作符，
+															//而不能对一个已经存在的对象调用构造器来达到修改实例域的目的
+		staff[1]=new Employee("Harry Hunt",50000,1989,10,1);
+		staff[2]=new Employee("Tony Tester",40000,1990,3,15);
+		
+		for(Employee e:staff)
+			e.raiseSalary(5);
+		
+		for(Employee e:staff)
+		{
+			System.out.println("name="+e.getName()+", salary="+e.getSalary()+", hireday="
+					+e.getHireDay());
+			
+		}
+
+	}
+
+}
+
+//在一个文件中只能有一个公有类，但可以有任意数目的非公有类
+class Employee
+{
+	//private表示只有Employee类自身的方法能够访问这些实例域
+	//实例域
+	private String name;//String是大写S
+	private double salary;
+	private Date hireday;
+	
+	//构造函数
+	public Employee(String n,double s,int year,int month,int day)
+	{
+		name=n;
+		salary=s;
+		GregorianCalendar calendar =new GregorianCalendar(year,month-1,day);
+		hireday=calendar.getTime();
+	}
+	
+	//public意味着任何类的任何方法都可以调用这些方法
+	//方法
+	public String getName()
+	{
+		return name;
+	}
+	public double getSalary()
+	{
+		return salary;
+	}
+	public Date getHireDay()
+	{
+		return hireday;
+	}
+	public void raiseSalary(double byPercent)
+	{
+		double raise=salary*byPercent/100;
+		salary+=raise;
+	}
+}
